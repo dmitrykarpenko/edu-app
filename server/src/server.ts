@@ -1,5 +1,6 @@
 import express, { Express, Response, Request } from "express";
 import { createHealthRouter } from "./routes/health";
+import cors from "cors";
 
 const errorHandler = (error: Error, req: Request, res: Response) => {
   console.log(error);
@@ -21,6 +22,8 @@ export const createServer = (): Express => {
   // middleware setup
   server.use(express.json());
   server.use(express.urlencoded({ extended: true }));
+
+  server.use(cors());
 
   server.use("/v1", createHealthRouter());
 
